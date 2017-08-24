@@ -7,7 +7,7 @@ module.exports = (event) => {
 
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
-        var myobj = { name: "Company Inc", address: "Highway 37" };
+        //var myobj = { name: "Company Inc", address: "Highway 37" };
         db.collection("messenger_chat").insertOne(event, function (err, res) {
             if (err) throw err;
             console.log("1 document inserted");

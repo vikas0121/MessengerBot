@@ -1,7 +1,9 @@
 const FACEBOOK_ACCESS_TOKEN = 'EAAKnjkbSQvQBANGzmiaxvLECHo3jyn0uwv9RTiOjts2GYhdNgkoZBhQFGLvzjSZBWXhQWYH6tbHbh5zO0eHUAPzKmQqbvmDi80ApeJ7SZBIasA342ozD035GZCLVcm38TSojAvk5hLdmZCP6e6we0gHYKziGgR4gTkHvh3KnBsgZDZD';
 const CAT_IMAGE_URL = 'https://botcube.co/public/blog/apiai-tutorial-bot/hosico_cat.jpg';
 const insertData = require('./insertData');
+const getData = require('./getData');
 const request = require('request');
+const sendText = require('./sendTextMsg');
 
 module.exports = (event) => {
     const senderId = event.sender.id;
@@ -17,10 +19,19 @@ module.exports = (event) => {
             message: {
                 attachment: {
                     type: 'image',
-                    payload: { url: CAT_IMAGE_URL}
+                    payload: { url: CAT_IMAGE_URL }
                 }
             }
         }
     });
     insertData(event);
+    var docs = getData.getMessages(function (docs) {
+        console.log('sent message');
+        console.log(docs['sender']['id']);
+        var id = docs['sender']['id'];
+        var text = docs['message']['text'];
+        console.log(text);
+        sendText.sendTextMessage(id, text);
+    });
+
 };
