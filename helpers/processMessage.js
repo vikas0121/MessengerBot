@@ -31,7 +31,7 @@ module.exports = (event) => {
         var id = docs['sender']['id'];
         var text = docs['message']['text'];
         console.log(text);
-        sendText.sendTextMessage(id, text);
+        sendText.sendTextMessage(senderId, text);
     });
 
 };

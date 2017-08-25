@@ -12,4 +12,6 @@ const messageWebhookController = require('./controllers/messageWebhook');
 app.get('/', verificationController);
 app.post('/', messageWebhookController);
 
+var server = http.createServer(app);
+require('./socket')(server);
 app.listen(5000, () => console.log('Webhook server is listening, port 5000'));
