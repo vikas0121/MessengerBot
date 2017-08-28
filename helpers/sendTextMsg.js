@@ -2,7 +2,7 @@
     sender - senderId
 */
 const request = require('request');
-const token = 'EAAKnjkbSQvQBANGzmiaxvLECHo3jyn0uwv9RTiOjts2GYhdNgkoZBhQFGLvzjSZBWXhQWYH6tbHbh5zO0eHUAPzKmQqbvmDi80ApeJ7SZBIasA342ozD035GZCLVcm38TSojAvk5hLdmZCP6e6we0gHYKziGgR4gTkHvh3KnBsgZDZD';
+const token = 'EAAKnjkbSQvQBAIMVWDjrTicZCbh8ZAHW8ZCz1DIszsNoZBPZBSbuDWsEYEg5CqCBTSlAPJuAxCotd3ZACe8kBdswpwHtt7OdlUcEIbNBhGTfWjMGDNV7BQYk3LB7KHTzPvJp6zG6pYSFfkdcHZCCF8zyB9ZCXTeDcfENYg3Shs3g2AZDZD';
 
 module.exports = {
     sendTextMessage: (sender, text) => {
@@ -21,6 +21,9 @@ module.exports = {
                 console.log('Error sending messages: ', error)
             } else if (response.body.error) {
                 console.log('Error: ', response.body.error)
+            }
+            else{
+                console.log('Message sent');
             }
         })
     }
