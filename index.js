@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongo = require('mongodb').MongoClient;
 const client = require('socket.io').listen(4000).sockets;
-const sendText = require('./helpers/sendTextMsg');
 const app = express();
 
 app.use(bodyParser.json());
@@ -10,6 +9,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const verificationController = require('./controllers/verification');
 const messageWebhookController = require('./controllers/messageWebhook');
+const sendText = require('./helpers/sendTextMsg');
 
 app.get('/', verificationController);
 app.post('/', messageWebhookController);
@@ -24,8 +24,6 @@ mongo.connect('mongodb://10.0.8.62:27017/test', function (err, db) {
     // Connect to Socket.io
     client.on('connection', function (socket) {
         //let chat = db.collection('messenger_chat').find();
-
-        // console.log(chat);
 
         // Create function to send status
         sendStatus = function (s) {
@@ -42,7 +40,6 @@ mongo.connect('mongodb://10.0.8.62:27017/test', function (err, db) {
 
         // Handle input events
         socket.on('input', function (data) {
-            console.log('data' + data);
             let name = data.name;
             let message = data.message;
             name = '1176405892458966';
@@ -57,7 +54,6 @@ mongo.connect('mongodb://10.0.8.62:27017/test', function (err, db) {
                         // Insert message
                         //chat.insert({name: name, message: message}, function(){
                         client.emit('output', [data]);
-                        console.log('enter message');
                         console.log([data]);
                         // Send status object
                         sendStatus({
@@ -65,7 +61,7 @@ mongo.connect('mongodb://10.0.8.62:27017/test', function (err, db) {
                             clear: true
                         });
                     });
-                            sendText.sendTextMessage(name, message);
+                sendText.sendTextMessage(name, message);
             }
         });
 
