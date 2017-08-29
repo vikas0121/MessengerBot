@@ -3,7 +3,8 @@ const bodyParser = require('body-parser');
 const mongo = require('mongodb').MongoClient;
 const client = require('socket.io').listen(4000).sockets;
 const app = express();
-
+var FB = require('fb');
+const token = 'EAAKnjkbSQvQBAIMVWDjrTicZCbh8ZAHW8ZCz1DIszsNoZBPZBSbuDWsEYEg5CqCBTSlAPJuAxCotd3ZACe8kBdswpwHtt7OdlUcEIbNBhGTfWjMGDNV7BQYk3LB7KHTzPvJp6zG6pYSFfkdcHZCCF8zyB9ZCXTeDcfENYg3Shs3g2AZDZD';
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -13,6 +14,19 @@ const sendText = require('./helpers/sendTextMsg');
 
 app.get('/', verificationController);
 app.post('/', messageWebhookController);
+
+// API to access user info
+FB.setAccessToken(token);
+FB.api('1176405892458966', function (res) {
+    if (!res || res.error) {
+        console.log(!res ? 'error occurred' : res.error);
+        return;
+    }
+    console.log(res);
+    console.log(res.id);
+    //console.log(res.name);
+});
+
 
 // Connect to mongo
 mongo.connect('mongodb://10.0.8.62:27017/test', function (err, db) {
