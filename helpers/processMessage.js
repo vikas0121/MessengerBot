@@ -24,14 +24,14 @@ module.exports = (event) => {
             }
         }
     });
-    insertData(event);
-    var docs = getData.getMessages(function (docs) {
-        console.log('sent message');
-        console.log(docs['sender']['id']);
-        var id = docs['sender']['id'];
-        var text = docs['message']['text'];
-        console.log(text);
-        sendText.sendTextMessage(senderId, text);
-    });
+    insertData(event,"messenger_chat");
+    // var docs = getData.getMessages(function (docs) {
+    //     console.log('sent message');
+    //     console.log(docs['sender']['id']);
+    //     var id = docs['sender']['id'];
+    //     var text = docs['message']['text'];
+    //     console.log(text);
+    //     sendText.sendTextMessage(senderId, text);
+    // });
 
 };

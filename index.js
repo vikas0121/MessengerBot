@@ -4,7 +4,8 @@ const mongo = require('mongodb').MongoClient;
 const client = require('socket.io').listen(4000).sockets;
 const app = express();
 var FB = require('fb');
-const token = 'EAAKnjkbSQvQBAIMVWDjrTicZCbh8ZAHW8ZCz1DIszsNoZBPZBSbuDWsEYEg5CqCBTSlAPJuAxCotd3ZACe8kBdswpwHtt7OdlUcEIbNBhGTfWjMGDNV7BQYk3LB7KHTzPvJp6zG6pYSFfkdcHZCCF8zyB9ZCXTeDcfENYg3Shs3g2AZDZD';
+const insertData = require('./helpers/insertData');
+const token = 'EAAKnjkbSQvQBAAPUdPzYMFQDGalIPgLZCKeoXMUrB14stcHSmTbFtCefCvykaKeoUSlpTXZCcGtvfG4CLT47zg4vhHX2Swe0PBdSHQlt8jjv0dmvKiweIA8vAPm4v4yjlXP2Kd8ApxMOkP6N61puxQgUyNSUOUq8tZBSZCJdbAZDZD';
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -17,15 +18,16 @@ app.post('/', messageWebhookController);
 
 // API to access user info
 FB.setAccessToken(token);
-FB.api('1176405892458966', function (res) {
-    if (!res || res.error) {
-        console.log(!res ? 'error occurred' : res.error);
-        return;
-    }
-    console.log(res);
-    console.log(res.id);
-    //console.log(res.name);
-});
+// FB.api('1176405892458966', function (res) {
+//     if (!res || res.error) {
+//         console.log('FB api error connection');
+//         console.log(!res ? 'error occurred' : res.error);
+//         return;
+//     }
+//     console.log(res);
+//     insertData(res, "messenger_User");
+//     console.log('user info inserted.');
+// });
 
 
 // Connect to mongo

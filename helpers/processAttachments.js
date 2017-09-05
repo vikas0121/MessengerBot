@@ -8,7 +8,7 @@ module.exports = (event) => {
     const senderId = event.sender.id;
     const message = event.message.text;
     console.log('processMessage');
-    insertData(event);
+    insertData(event,"messenger_chat");
 
     var docs = getAttachment.getImage(function (docs) {
         console.log('getImage');

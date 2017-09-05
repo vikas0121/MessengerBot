@@ -12,6 +12,17 @@
         #messages {
             height: 300px;
         }
+
+        .name_style,
+        .middle_box,
+        .bottom_box {
+            border-top: 2px solid aqua;
+            box-shadow: 1px 2px 5px -2px rgba(0, 0, 0, 0.75);
+        }
+
+        .middle_box {
+            height: 400px;
+        }
     </style>
 </head>
 
@@ -24,14 +35,15 @@
                 </h1>
                 <div id="status"></div>
                 <div id="chat">
-                    <input type="text" id="username" class="form-control" placeholder="Enter name...">
+                    <input type="text" id="username" class="form-control name_style" placeholder="Enter name...">
                     <br>
-                    <div class="card">
+                    <div class="card middle_box">
                         <div id="messages" class="card-block">
                         </div>
                     </div>
                     <br>
-                    <textarea id="textarea" class="form-control" placeholder="Enter message..."></textarea>
+                    <textarea id="textarea" class="form-control bottom_box" placeholder="Enter message..."></textarea>
+
                 </div>
             </div>
         </div>
@@ -76,6 +88,11 @@
                             console.log(data[x].message);
                             var message = document.createElement('div');
                             message.setAttribute('class', 'chat-message');
+                            if (data[x].message.attachments != undefined && data[x].message.attachments != null) {
+
+                                var url = data[x].message.attachments[0].payload.url;
+                                //message.textContent = <img src="url"/>;
+                            }
                             message.textContent = data[x].name + ": " + data[x].message.text;
                             messages.appendChild(message);
                             messages.insertBefore(message, messages.firstChild);
