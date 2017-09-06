@@ -2,6 +2,7 @@
     sender - senderId
 */
 const request = require('request');
+var configValues = require('../config.js');
 const FACEBOOK_ACCESS_TOKEN = 'EAAKnjkbSQvQBANGzmiaxvLECHo3jyn0uwv9RTiOjts2GYhdNgkoZBhQFGLvzjSZBWXhQWYH6tbHbh5zO0eHUAPzKmQqbvmDi80ApeJ7SZBIasA342ozD035GZCLVcm38TSojAvk5hLdmZCP6e6we0gHYKziGgR4gTkHvh3KnBsgZDZD';
 module.exports = {
     sendImage: (senderId, url) => {

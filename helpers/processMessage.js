@@ -4,6 +4,7 @@ const insertData = require('./insertData');
 const getData = require('./getData');
 const request = require('request');
 const sendText = require('./sendTextMsg');
+var configValues = require('../config.js');
 
 module.exports = (event) => {
     const senderId = event.sender.id;

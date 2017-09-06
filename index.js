@@ -7,7 +7,9 @@ var FB = require('fb');
 const insertData = require('./helpers/insertData');
 const token = 'EAAKnjkbSQvQBAAPUdPzYMFQDGalIPgLZCKeoXMUrB14stcHSmTbFtCefCvykaKeoUSlpTXZCcGtvfG4CLT47zg4vhHX2Swe0PBdSHQlt8jjv0dmvKiweIA8vAPm4v4yjlXP2Kd8ApxMOkP6N61puxQgUyNSUOUq8tZBSZCJdbAZDZD';
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 const verificationController = require('./controllers/verification');
 const messageWebhookController = require('./controllers/messageWebhook');
@@ -16,18 +18,29 @@ const sendText = require('./helpers/sendTextMsg');
 app.get('/', verificationController);
 app.post('/', messageWebhookController);
 
-// API to access user info
-FB.setAccessToken(token);
-// FB.api('1176405892458966', function (res) {
-//     if (!res || res.error) {
-//         console.log('FB api error connection');
-//         console.log(!res ? 'error occurred' : res.error);
-//         return;
-//     }
-//     console.log(res);
-//     insertData(res, "messenger_User");
-//     console.log('user info inserted.');
-// });
+
+
+
+var cron = require('node-cron');
+var cronJob = cron.schedule("*/5 * * * * *", function () {
+    // perform operation e.g. GET request http.get() etc.
+    var i = 0;
+    console.log('cron job completed' + i);
+    i ++;
+});
+cronJob.start();
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // Connect to mongo
@@ -46,7 +59,9 @@ mongo.connect('mongodb://10.0.8.62:27017/test', function (err, db) {
             socket.emit('status', s);
         }
         // Get chats from mongo collection
-        db.collection('messenger_chat').find().limit(10).sort({ _id: -1 }).toArray(function (err, res) {
+        db.collection('messenger_chat').find().limit(10).sort({
+            _id: -1
+        }).toArray(function (err, res) {
             if (err) {
                 throw err;
             }
@@ -65,18 +80,22 @@ mongo.connect('mongodb://10.0.8.62:27017/test', function (err, db) {
                 // Send error status
                 sendStatus('Please enter a name and message');
             } else {
-                db.collection('messenger_chat').insert(
-                    { sender: name, message: { text: message } }, function () {
-                        // Insert message
-                        //chat.insert({name: name, message: message}, function(){
-                        client.emit('output', [data]);
-                        console.log([data]);
-                        // Send status object
-                        sendStatus({
-                            message: 'Message sent',
-                            clear: true
-                        });
+                db.collection('messenger_chat').insert({
+                    sender: name,
+                    message: {
+                        text: message
+                    }
+                }, function () {
+                    // Insert message
+                    //chat.insert({name: name, message: message}, function(){
+                    client.emit('output', [data]);
+                    console.log([data]);
+                    // Send status object
+                    sendStatus({
+                        message: 'Message sent',
+                        clear: true
                     });
+                });
                 sendText.sendTextMessage(name, message);
             }
         });

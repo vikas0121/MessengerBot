@@ -19,7 +19,6 @@ module.exports = (event, collection) => {
             db.close();
         });
     });
-    console.log('vikas');
     // Send Messenger to chat
     sendMessageToChat.sendMsgToChat(event);
 };
