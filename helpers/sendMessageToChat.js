@@ -6,28 +6,30 @@ module.exports = {
 
         console.log(event.sender.id);
         var data = userInfo.getUser(event.sender.id, function (data) {
-            console.log(data);
+            //console.log(data);
         });
         console.log(event);
         var url = null;
         if(event.message.attachments){
             console.log('Vikas');
             console.log(event.message.attachments[0].payload.url);
+            url =event.message.attachments[0].payload.url;
         }
             
-        console.log(data);
+        //console.log(data);
         if (event.message != undefined) {
             jsonObject = JSON.stringify({
                 "mobileno": "7042249079",
                 "name": "Vikas",
-                //"custid": 2664508,
+                "custid": event.sender.id,
                 "departmentid": "8tGiqNce6X7uLYKEF",
                 "department": "TermLife",
                 "Body": event.message.text,
                 "token": null,
                 "read": null,
                 "roomid": null,
-                "userid": null
+                "userid": null,
+                "source": "FB"
             });
             console.log(jsonObject);
             console.log('API called');
@@ -39,8 +41,9 @@ module.exports = {
 
             // the post options
             var optionspost = {
-                host: 'chatbot.policybazaar.com',
-                //port: 3000,
+                //host: 'chatbot.policybazaar.com',
+                host: '10.0.32.94',
+                port: 3000,
                 path: '/api/v1/livechat/wa-incoming',
                 method: 'POST',
                 headers: postheaders,
@@ -69,16 +72,13 @@ module.exports = {
                     console.log('\n\nPOST completed');
                 });
             });
-            console.log('Hello vikas');
             // write the json data
             reqPost.write(jsonObject);
             reqPost.end();
-            console.log('Hello vikas 2');
             // reqPost.on('error', function (e) {
             //     console.log('Error while connecting chat api');
             //     console.error(e);
             // });
-            console.log('Hello vikas 3');
         }
     }
 };

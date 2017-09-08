@@ -5,6 +5,8 @@ const client = require('socket.io').listen(4000).sockets;
 const app = express();
 var FB = require('fb');
 const insertData = require('./helpers/insertData');
+const chatMsgs = require('./helpers/getChatMsgs.js');
+const sendMsg = require('./helpers/sendTextMsg.js');
 const token = 'EAAKnjkbSQvQBAAPUdPzYMFQDGalIPgLZCKeoXMUrB14stcHSmTbFtCefCvykaKeoUSlpTXZCcGtvfG4CLT47zg4vhHX2Swe0PBdSHQlt8jjv0dmvKiweIA8vAPm4v4yjlXP2Kd8ApxMOkP6N61puxQgUyNSUOUq8tZBSZCJdbAZDZD';
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -18,30 +20,23 @@ const sendText = require('./helpers/sendTextMsg');
 app.get('/', verificationController);
 app.post('/', messageWebhookController);
 
-
-
-
 var cron = require('node-cron');
 var cronJob = cron.schedule("*/5 * * * * *", function () {
+    chatMsgs.getChatMessages(function(data){
+        console.log('inside getChatMessages');
+        //console.log(data);
+        data.forEach(function(element){
+            console.log('inside foreach loop');
+            console.log(element.CustID);
+            console.log(element.Message);
+            sendMsg.sendTextMessage(element.CustID, element.Message);
+        });
+    });
     // perform operation e.g. GET request http.get() etc.
-    var i = 0;
-    console.log('cron job completed' + i);
-    i ++;
+    // Running the schedular in every 5 secs
+    console.log('cron job completed');
 });
 cronJob.start();
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Connect to mongo
 mongo.connect('mongodb://10.0.8.62:27017/test', function (err, db) {
