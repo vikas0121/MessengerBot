@@ -16,6 +16,7 @@ app.use(bodyParser.urlencoded({
 const verificationController = require('./controllers/verification');
 const messageWebhookController = require('./controllers/messageWebhook');
 const sendText = require('./helpers/sendTextMsg');
+const chatStatus = require('./helpers/updateChatStatus.js');
 
 app.get('/', verificationController);
 app.post('/', messageWebhookController);
@@ -27,9 +28,11 @@ var cronJob = cron.schedule("*/5 * * * * *", function () {
         //console.log(data);
         data.forEach(function(element){
             console.log('inside foreach loop');
+            console.log(element);
             console.log(element.CustID);
             console.log(element.Message);
             sendMsg.sendTextMessage(element.CustID, element.Message);
+            chatStatus.updateChatMsg(element._id);
         });
     });
     // perform operation e.g. GET request http.get() etc.
