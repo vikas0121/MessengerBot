@@ -12,6 +12,7 @@ module.exports = (req, res) => {
                 }
                 if(event.message && event.message.attachments){
                     console.log('attachments');
+                    console.log(event.message.attachments);
                     processAttachment(event);
                 }
             });

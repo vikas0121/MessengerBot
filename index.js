@@ -7,6 +7,7 @@ var FB = require('fb');
 const insertData = require('./helpers/insertData');
 const chatMsgs = require('./helpers/getChatMsgs.js');
 const sendMsg = require('./helpers/sendTextMsg.js');
+const sendAttachment = require('./helpers/sendAttachment');
 const token = 'EAAKnjkbSQvQBAAPUdPzYMFQDGalIPgLZCKeoXMUrB14stcHSmTbFtCefCvykaKeoUSlpTXZCcGtvfG4CLT47zg4vhHX2Swe0PBdSHQlt8jjv0dmvKiweIA8vAPm4v4yjlXP2Kd8ApxMOkP6N61puxQgUyNSUOUq8tZBSZCJdbAZDZD';
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -23,17 +24,26 @@ app.post('/', messageWebhookController);
 
 var cron = require('node-cron');
 var cronJob = cron.schedule("*/5 * * * * *", function () {
-    chatMsgs.getChatMessages(function(data){
+    chatMsgs.getChatMessages(function (data) {
         console.log('inside getChatMessages');
-        //console.log(data);
-        data.forEach(function(element){
-            console.log('inside foreach loop');
-            console.log(element);
-            console.log(element.CustID);
-            console.log(element.Message);
-            sendMsg.sendTextMessage(element.CustID, element.Message);
-            chatStatus.updateChatMsg(element._id);
-        });
+            data.forEach(function (element) {
+                console.log('inside foreach loop');
+                console.log(element.CustID);
+                console.log(element.Message);
+                console.log('callback 0');
+                if(element.Message != ""){
+                sendMsg.sendTextMessage(element.CustID, element.Message,element._id);
+            }
+            else if(element.attachments != null){
+                console.log('attachments');
+                console.log(element.attachments[0].image_url);
+                var url = 'chatbot.policybazaar.com'+element.attachments[0].image_url;
+                sendAttachment.sendImage(element.CustID,url);
+            }
+                console.log('callback 1');
+                chatStatus.updateChatMsg(element._id,url);
+            });
+            
     });
     // perform operation e.g. GET request http.get() etc.
     // Running the schedular in every 5 secs

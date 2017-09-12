@@ -5,6 +5,7 @@ const getData = require('./getData');
 const request = require('request');
 const sendText = require('./sendTextMsg');
 var configValues = require('../config.js');
+var sendMessageToChat = require('./sendMessageToChat.js');
 
 module.exports = (event) => {
     const senderId = event.sender.id;
@@ -26,6 +27,9 @@ module.exports = (event) => {
         }
     });
     insertData(event,"messenger_chat");
+    console.log('calling chat api');
+     // Send Messenger to chat
+    sendMessageToChat.sendMsgToChat(event);
     // var docs = getData.getMessages(function (docs) {
     //     console.log('sent message');
     //     console.log(docs['sender']['id']);

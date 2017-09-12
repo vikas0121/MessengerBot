@@ -20,5 +20,5 @@ module.exports = (event, collection) => {
         });
     });
     // Send Messenger to chat
-    sendMessageToChat.sendMsgToChat(event);
+    //sendMessageToChat.sendMsgToChat(event);
 };

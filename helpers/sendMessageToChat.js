@@ -8,14 +8,15 @@ module.exports = {
         var data = userInfo.getUser(event.sender.id, function (data) {
             //console.log(data);
         });
-        console.log(event);
+        //console.log(event);
         var url = null;
-        if(event.message.attachments){
-            console.log('Vikas');
+        if (event.message.attachments) {
             console.log(event.message.attachments[0].payload.url);
-            url =event.message.attachments[0].payload.url;
+            console.log('Image Url');
+            url = event.message.attachments[0].payload.url;
+            console.log(url);
         }
-            
+        console.log(event.sender.id);
         //console.log(data);
         if (event.message != undefined) {
             jsonObject = JSON.stringify({
@@ -24,12 +25,20 @@ module.exports = {
                 "custid": event.sender.id,
                 "departmentid": "8tGiqNce6X7uLYKEF",
                 "department": "TermLife",
-                "Body": event.message.text,
+                "Body": null,
                 "token": null,
                 "read": null,
                 "roomid": null,
                 "userid": null,
-                "source": "FB"
+                "source": "FB",
+                "attachments": [{
+                    "title": url,
+                    "title_link": url,
+                    "title_link_download": false,
+                    "image_url": url,
+                    "image_type": null,
+                    "image_size": 0
+                }]
             });
             console.log(jsonObject);
             console.log('API called');
@@ -73,8 +82,10 @@ module.exports = {
                 });
             });
             // write the json data
+            console.log('done2');
             reqPost.write(jsonObject);
             reqPost.end();
+            console.log('done');
             // reqPost.on('error', function (e) {
             //     console.log('Error while connecting chat api');
             //     console.error(e);
