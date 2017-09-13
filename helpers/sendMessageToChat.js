@@ -25,7 +25,7 @@ module.exports = {
                 "custid": event.sender.id,
                 "departmentid": "8tGiqNce6X7uLYKEF",
                 "department": "TermLife",
-                "Body": null,
+                "Body": event.message.text,
                 "token": null,
                 "read": null,
                 "roomid": null,

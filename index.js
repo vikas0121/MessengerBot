@@ -13,6 +13,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+var path    = require("path");
+
 
 const verificationController = require('./controllers/verification');
 const messageWebhookController = require('./controllers/messageWebhook');
@@ -21,6 +23,12 @@ const chatStatus = require('./helpers/updateChatStatus.js');
 
 app.get('/', verificationController);
 app.post('/', messageWebhookController);
+
+app.get('/about',function(req,res){
+  res.sendFile(path.join(__dirname+'/index.html'));
+});
+
+
 
 var cron = require('node-cron');
 var cronJob = cron.schedule("*/5 * * * * *", function () {

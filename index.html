@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -88,7 +88,8 @@
                             console.log(data[x].message);
                             var message = document.createElement('div');
                             message.setAttribute('class', 'chat-message');
-                            if (data[x].message.attachments != undefined && data[x].message.attachments != null) {
+                            if (data[x].message.attachments != undefined && data[x].message.attachments !=
+                                null) {
 
                                 var url = data[x].message.attachments[0].payload.url;
                                 //message.textContent = <img src="url"/>;
@@ -125,7 +126,76 @@
                 });
             }
         })();
+
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '747179468800756',
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: 'v2.10'
+            });
+            FB.AppEvents.logPageView();
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
     </script>
 </body>
 
+</html> -->
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Facebook getLoginStatus Example</title>
+</head>
+<body>
+  <p>Check out the console to see if anything appears.</p>
+  <p>HERE'S THE CODE:</p>
+  <pre>
+    <!-- $(function(){
+      FB.init({ apiKey: '747179468800756', status: true });
+
+      FB.getLoginStatus(function(response) {
+        if (response.status === 'connected') {
+          console.log(response);
+        } else if (response.status === 'not_authorized') {
+          console.log('not connected to app');
+        } else {
+          console.log('not logged in to fb');
+        }
+      });
+    }); -->
+  </pre>
+  <div id='fb-root'></div>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="https://connect.facebook.net/en_US/all.js"></script>
+  <script>
+    (function(){
+      FB.init({ apiKey: '747179468800756', status: true });
+      FB.getLoginStatus(function(response) {
+          console.log('hello');
+        if (response.status === 'connected') {
+          console.log(response);
+        } else if (response.status === 'not_authorized') {
+          console.log('not connected to app');
+        } else {
+          console.log('not logged in to fb');
+        }
+      });
+    }());
+  </script>
+</body>
 </html>
