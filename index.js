@@ -4,15 +4,14 @@ const mongo = require('mongodb').MongoClient;
 const client = require('socket.io').listen(4000).sockets;
 const app = express();
 var FB = require('fb');
+var request = require('request');
 const insertData = require('./helpers/insertData');
 const chatMsgs = require('./helpers/getChatMsgs.js');
 const sendMsg = require('./helpers/sendTextMsg.js');
 const sendAttachment = require('./helpers/sendAttachment');
 const token = 'EAAKnjkbSQvQBAAPUdPzYMFQDGalIPgLZCKeoXMUrB14stcHSmTbFtCefCvykaKeoUSlpTXZCcGtvfG4CLT47zg4vhHX2Swe0PBdSHQlt8jjv0dmvKiweIA8vAPm4v4yjlXP2Kd8ApxMOkP6N61puxQgUyNSUOUq8tZBSZCJdbAZDZD';
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+app.use(bodyParser.urlencoded({extended: true}));
 var path    = require("path");
 
 
@@ -24,9 +23,85 @@ const chatStatus = require('./helpers/updateChatStatus.js');
 app.get('/', verificationController);
 app.post('/', messageWebhookController);
 
-app.get('/about',function(req,res){
-  res.sendFile(path.join(__dirname+'/index.html'));
+// app.get('/about',function(req,res){
+//   res.sendFile(path.join(__dirname+'/index.html'));
+// });
+
+
+app.use(express.static(__dirname));
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json())
+app.set('view engine', 'jade');
+
+function guid() {
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+      }
+      return s4() + s4() + '-' + s4() + '-' + s4() + '-' +s4() + '-' + s4() + s4() + s4();
+}
+
+
+app.get('/login', function(req, res){
+  res.render("index",{guid:guid()});
 });
+
+app.get('/webhook', function (req, res) {
+    console.log("into web hook");
+    if (req.query['hub.verify_token'] === 'botcube is cool') {
+      res.send(req.query['hub.challenge']);
+   } else {
+      res.send('Error, wrong validation token');    
+   }
+});
+
+// app.post('/', function (req, res) {
+//     console.log("into post web hook");
+//     console.log(req.body);
+//     console.log(req.body.entry[0].messaging);
+//     res.sendStatus(200)
+// });
+
+app.post('/sendmessage', function (req, res){
+     
+    console.log("intosendmessaage");
+    var headers = {
+      'Content-Type': 'application/json'
+    }
+    
+    var options = {
+      url: "https://graph.facebook.com/v2.6/me/messages?access_token=EAAKnjkbSQvQBAEEyWgpUKR2HZBSPRDwMsEzgP3fHRPNzTFHOOxUaeZBzAZCj5aAMM2DbZBzx9FMO6sgFYXwAo02hPQ8ZB1oowPHx2U307d74AeipGe5Xagv7lZCfLK1UloAs9lZAubA7cCZAI5KvdZAJzdw8J8KFRlsUBn0b9fWlbaQZDZD",
+      method: 'POST',
+      headers: headers,      
+      form: {
+        "recipient": {
+          "user_ref":  req.body.user_ref
+        }, 
+        
+        "message": {
+          "text":req.body.message
+        }
+      }
+    }
+    
+    request(options, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        console.log(body);
+        res.sendStatus(200);
+      }
+      else{
+        res.sendStatus(response.statusCode);
+    }
+  });
+});
+
+
+
+
+
+
+
 
 
 

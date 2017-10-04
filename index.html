@@ -158,13 +158,15 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Facebook getLoginStatus Example</title>
+    <title>Facebook getLoginStatus Example</title>
 </head>
+
 <body>
-  <p>Check out the console to see if anything appears.</p>
-  <p>HERE'S THE CODE:</p>
-  <pre>
+    <p>Check out the console to see if anything appears.</p>
+    <p>HERE'S THE CODE:</p>
+    <pre>
     <!-- $(function(){
       FB.init({ apiKey: '747179468800756', status: true });
 
@@ -179,23 +181,62 @@
       });
     }); -->
   </pre>
-  <div id='fb-root'></div>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script src="https://connect.facebook.net/en_US/all.js"></script>
-  <script>
-    (function(){
-      FB.init({ apiKey: '747179468800756', status: true });
-      FB.getLoginStatus(function(response) {
-          console.log('hello');
-        if (response.status === 'connected') {
-          console.log(response);
-        } else if (response.status === 'not_authorized') {
-          console.log('not connected to app');
-        } else {
-          console.log('not logged in to fb');
+    <div id='fb-root'></div>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="https://connect.facebook.net/en_US/all.js"></script>
+    <script>
+        (function () {
+            FB.init({
+                apiKey: '747179468800756',
+                status: true,
+                cookie: true,
+                xfbml: true
+            });
+
+            userInfo();
+            // if (FB.getSession() != null) {
+            //     FB.api('/me', function (response) {
+            //         alert("Welcome " + response.name + ": Your UID is " + response.id);
+            //     });
+            // }
+
+
+            FB.getLoginStatus(function (response) {
+                console.log('hello');
+                if (response.status === 'connected') {
+                    console.log(response);
+                } else if (response.status === 'not_authorized') {
+                    var uri = encodeURI('https://1216741d.ngrok.io/about');
+                    window.location = encodeURI(
+                        "https://www.facebook.com/dialog/oauth?client_id=747179468800756&redirect_uri=" +
+                        uri + "&response_type=token");
+                    console.log('not connected to app');
+                    //login();
+                } else {
+                    console.log('not logged in to fb');
+                }
+            });
+        }());
+
+        function login() {
+            FB.login(function (response) {
+                console.log('function login');
+                if (response.authResponse) {
+                    // proceed
+                    console.log(response);
+                } else {
+                    console.log('not connected to app');
+                    // not auth / cancelled the login!
+                }
+            });
         }
-      });
-    }());
-  </script>
+
+        function userInfo(){
+            FB.api('/me', function (response) {
+                alert("Welcome " + response.name + ": Your UID is " + response.id);
+            });
+        }
+    </script>
 </body>
+
 </html>
