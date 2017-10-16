@@ -15,7 +15,7 @@ module.exports = {
         }
 
         var options = {
-            url: "https://graph.facebook.com/v2.6/me/messages?access_token=EAAKnjkbSQvQBAEEyWgpUKR2HZBSPRDwMsEzgP3fHRPNzTFHOOxUaeZBzAZCj5aAMM2DbZBzx9FMO6sgFYXwAo02hPQ8ZB1oowPHx2U307d74AeipGe5Xagv7lZCfLK1UloAs9lZAubA7cCZAI5KvdZAJzdw8J8KFRlsUBn0b9fWlbaQZDZD",
+            url: "https://graph.facebook.com/v2.6/me/messages?access_token=EAAKnjkbSQvQBADIbJq0w1rzTeZCZC7UC6fs8uwmcXUmmmPZANFZA8g1Dvo19PxRIt5qfTwcXRvUmkcStV2ElHcXgwrIrcYErwZC3RDeh75d1uFGfQ1w9a9dFRqxIfNKWlcHpbzqVQGHbeWVbdbe5LTtjUvFQ2odJBwFN3eiX0ogZDZD",
             method: 'POST',
             headers: headers,
             form: {

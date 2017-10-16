@@ -9,7 +9,7 @@ const insertData = require('./helpers/insertData');
 const chatMsgs = require('./helpers/getChatMsgs.js');
 const sendMsg = require('./helpers/sendTextMsg.js');
 const sendAttachment = require('./helpers/sendAttachment');
-const token = 'EAAKnjkbSQvQBAAPUdPzYMFQDGalIPgLZCKeoXMUrB14stcHSmTbFtCefCvykaKeoUSlpTXZCcGtvfG4CLT47zg4vhHX2Swe0PBdSHQlt8jjv0dmvKiweIA8vAPm4v4yjlXP2Kd8ApxMOkP6N61puxQgUyNSUOUq8tZBSZCJdbAZDZD';
+const token = 'EAAKnjkbSQvQBADIbJq0w1rzTeZCZC7UC6fs8uwmcXUmmmPZANFZA8g1Dvo19PxRIt5qfTwcXRvUmkcStV2ElHcXgwrIrcYErwZC3RDeh75d1uFGfQ1w9a9dFRqxIfNKWlcHpbzqVQGHbeWVbdbe5LTtjUvFQ2odJBwFN3eiX0ogZDZD';
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 var path    = require("path");
