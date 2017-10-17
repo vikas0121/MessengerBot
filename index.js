@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongo = require('mongodb').MongoClient;
-const client = require('socket.io').listen(4000).sockets;
 const app = express();
 var FB = require('fb');
 var request = require('request');
