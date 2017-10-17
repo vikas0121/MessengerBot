@@ -144,8 +144,8 @@ mongo.connect('mongodb://10.0.8.62:27017/test', function (err, db) {
 
         // Handle input events
         socket.on('input', function (data) {
-            let name = data.name;
-            let message = data.message;
+            var name = data.name;
+            var message = data.message;
             name = '1176405892458966';
             console.log(data.message);
             // Check for name and message
