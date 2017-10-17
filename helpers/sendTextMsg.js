@@ -7,7 +7,7 @@ var configValues = require('../config');
 var token = configValues.PAGE_ACCESS_TOKEN;
 module.exports = {
     sendTextMessage: (sender, text) => {
-        let messageData = { text: text }
+        var messageData = { text: text }
 
         request({
             url: 'https://graph.facebook.com/v2.6/me/messages',
