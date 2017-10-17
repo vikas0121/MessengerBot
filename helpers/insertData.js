@@ -19,6 +19,4 @@ module.exports = (event, collection) => {
             db.close();
         });
     });
-    // Send Messenger to chat
-    //sendMessageToChat.sendMsgToChat(event);
 };

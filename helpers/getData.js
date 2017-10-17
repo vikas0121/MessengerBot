@@ -17,13 +17,3 @@ module.exports = {
         });
     }
 };
-
-    // MongoClient.connect(url, function (err, db) {
-    //     if (err) throw err;
-
-    //     db.collection("messenger_chat").find({}).toArray(function (err, docs) {
-    //         console.log(docs);
-    //         console.log("Returned #" + docs.length + " documents");
-    //         db.close();
-    //     })
-    // });
