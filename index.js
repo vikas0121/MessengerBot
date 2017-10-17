@@ -13,6 +13,7 @@ const token = 'EAAKnjkbSQvQBADIbJq0w1rzTeZCZC7UC6fs8uwmcXUmmmPZANFZA8g1Dvo19PxRI
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 var path    = require("path");
+var config = require('./config');
 
 
 const verificationController = require('./controllers/verification');
@@ -22,11 +23,6 @@ const chatStatus = require('./helpers/updateChatStatus.js');
 
 app.get('/', verificationController);
 app.post('/', messageWebhookController);
-
-// app.get('/about',function(req,res){
-//   res.sendFile(path.join(__dirname+'/index.html'));
-// });
-
 
 app.use(express.static(__dirname));
 // app.use(bodyParser.urlencoded({ extended: false }));
@@ -56,13 +52,6 @@ app.get('/webhook', function (req, res) {
    }
 });
 
-// app.post('/', function (req, res) {
-//     console.log("into post web hook");
-//     console.log(req.body);
-//     console.log(req.body.entry[0].messaging);
-//     res.sendStatus(200)
-// });
-
 app.post('/sendmessage', function (req, res){
      
     console.log("intosendmessaage");
@@ -71,7 +60,7 @@ app.post('/sendmessage', function (req, res){
     }
     
     var options = {
-      url: "https://graph.facebook.com/v2.6/me/messages?access_token=EAAKnjkbSQvQBAEEyWgpUKR2HZBSPRDwMsEzgP3fHRPNzTFHOOxUaeZBzAZCj5aAMM2DbZBzx9FMO6sgFYXwAo02hPQ8ZB1oowPHx2U307d74AeipGe5Xagv7lZCfLK1UloAs9lZAubA7cCZAI5KvdZAJzdw8J8KFRlsUBn0b9fWlbaQZDZD",
+      url: "https://graph.facebook.com/v2.6/me/messages?access_token=" + config.PAGE_ACCESS_TOKEN,
       method: 'POST',
       headers: headers,      
       form: {
@@ -95,13 +84,6 @@ app.post('/sendmessage', function (req, res){
     }
   });
 });
-
-
-
-
-
-
-
 
 
 
