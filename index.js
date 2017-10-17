@@ -116,11 +116,5 @@ var cronJob = cron.schedule("*/5 * * * * *", function () {
 });
 cronJob.start();
 
-// Connect to mongo
-mongo.connect('mongodb://10.0.8.62:27017/test', function (err, db) {
-    if (err) {
-        throw err;
-    }
-    console.log('MongoDB connected...');
 
 app.listen(5000, () => console.log('Webhook server is listening, port 5000'));
