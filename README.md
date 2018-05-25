@@ -1,13 +1,10 @@
 # MessengerBot
 
-A basic chat application using Node.Js, MongoDB, socket.io using facebook API's.
+A basic chat application using Node.Js, MongoDB and using facebook graph API's.
 
 
 Start applicatio:
 
 npm install
-<<<<<<< HEAD
 
-=======
->>>>>>> c861e99bcc558c9d0057bca8202de21d0e6249e5
 node index.js

@@ -8,10 +8,9 @@ const insertData = require('./helpers/insertData');
 const chatMsgs = require('./helpers/getChatMsgs.js');
 const sendMsg = require('./helpers/sendTextMsg.js');
 const sendAttachment = require('./helpers/sendAttachment');
-const token = 'EAAKnjkbSQvQBADIbJq0w1rzTeZCZC7UC6fs8uwmcXUmmmPZANFZA8g1Dvo19PxRIt5qfTwcXRvUmkcStV2ElHcXgwrIrcYErwZC3RDeh75d1uFGfQ1w9a9dFRqxIfNKWlcHpbzqVQGHbeWVbdbe5LTtjUvFQ2odJBwFN3eiX0ogZDZD';
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-var path    = require("path");
+var path = require("path");
 var config = require('./config');
 
 
@@ -75,7 +74,6 @@ app.post('/sendmessage', function (req, res){
     
     request(options, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-        console.log(body);
         res.sendStatus(200);
       }
       else{
@@ -84,27 +82,19 @@ app.post('/sendmessage', function (req, res){
   });
 });
 
-
-
 var cron = require('node-cron');
 var cronJob = cron.schedule("*/5 * * * * *", function () {
     chatMsgs.getChatMessages(function (data) {
         console.log('inside getChatMessages');
             data.forEach(function (element) {
                 console.log('inside foreach loop');
-                console.log(element.CustID);
-                console.log(element.Message);
-                console.log('callback 0');
                 if(element.Message != ""){
                 sendMsg.sendTextMessage(element.CustID, element.Message,element._id);
             }
             else if(element.attachments != null){
-                console.log('attachments');
-                console.log(element.attachments[0].image_url);
                 var url = 'chatbot.policybazaar.com'+element.attachments[0].image_url;
                 sendAttachment.sendImage(element.CustID,url);
             }
-                console.log('callback 1');
                 chatStatus.updateChatMsg(element._id,url);
             });
             
